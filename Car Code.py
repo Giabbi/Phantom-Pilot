@@ -1,3 +1,5 @@
+# The following code is from Car 1, Car 2 has the same code but with "Car 2" instead of "Car 1" in the print() statements
+
 from multiprocessing.pool import ThreadPool
 from random import randint
 from sys import argv
@@ -31,21 +33,17 @@ class MotorDriver():
         if(motor == 0):
             pwm.setDutycycle(self.PWMA, speed)
             if(index == Dir[0]):
-                print ("1")
                 pwm.setLevel(self.AIN1, 0)
                 pwm.setLevel(self.AIN2, 1)
             else:
-                print ("2")
                 pwm.setLevel(self.AIN1, 1)
                 pwm.setLevel(self.AIN2, 0)
         else:
             pwm.setDutycycle(self.PWMB, speed)
             if(index == Dir[0]):
-                print ("3")
                 pwm.setLevel(self.BIN1, 0)
                 pwm.setLevel(self.BIN2, 1)
             else:
-                print ("4")
                 pwm.setLevel(self.BIN1, 1)
                 pwm.setLevel(self.BIN2, 0)
 
@@ -147,13 +145,13 @@ def luckyBlock():
                 dimensions = int(argv[1])
                 dimensions += 10
             case 2: 
-                # Power Star
+                # 1-Up Mushroom
                 eventCode = 2
                 global nitro
                 nitro = int(argv[3])
                 nitro += 10
             case 3:
-                # Star
+                # Power Star
                 eventCode = 3
             case 4:
                 # Shell
@@ -164,7 +162,6 @@ def luckyBlock():
                 speed += 20
     return
 
-    
 def main():  
     global dimensions, luck, nitro, power, wasBoosted, wasNerfed, speed, eventCode
 
@@ -195,7 +192,7 @@ def main():
     luckyBlockThread.start()
     stopTimer.start()
 
-    # There is a try except only because this is a testing version, this control strcuture is not in the actual car
+    # There is a try except only because this is a testing version, this control structure is not in the actual car
     try:
         while True:
             carPool = ThreadPool(processes = 1) # Initialize and start Thread for speed with ThreadPool so that I can get return value
@@ -203,22 +200,23 @@ def main():
             speed = speedResults.get() # Gets return values
             # Try to match event codes, if none just moves forward; After an event the event code is set back to base value of 100
             match eventCode:      
-                case 0:
+                case 0: # Crash case
                     print("Car 1 crashed!!!")
                     motor.MotorStop(0)
                     motor.MotorStop(1)
                     return
-                case -1:
+                case -1: # Finish case
                     print("Car 1 finished the race!")
                     speed = 0
                     motor.MotorStop(0)
                     motor.MotorStop(1)
                     return
+                # Lucky block cases
                 case 1:
-                    print("Car 1  got a power mushroom, its size is increasing!")
+                    print("Car 1 got a power mushroom, its size is increasing!")
                     eventCode = 100
                 case 2:
-                    print("The nitro of car 1 increased!")
+                    print("Car 1 got a 1-Up mushroom, its nitro increased!")
                     eventCode = 100
                 case 3:
                     print("Car 1 got a power star! It has become invulnerable to crashes!")
@@ -229,22 +227,21 @@ def main():
                 case 5:
                     print("Car 1 rocket mode: ENGAGED!!!")
                     eventCode = 100
-                case 6:
+                case 6: # Speed boost case
                     print("Car 1 nitro: activated!!!")
                     eventCode = 100
-                case 7:
+                case 7: # Speed nerf case
                     print("Car 1 is slowing down!")
                     eventCode = 100
                 case _:
                     continue
-            if speed > 100: # Check again for speed limits
+            # Check again for speed limits
+            if speed > 100: 
                 speed = 100
             elif speed < 25:
                 speed = 25
-            # Here it says backwards because I saw that with this keyword the car runs faster than with forward, 
-            # to get the car to still go forward I simply switched the wiring of the motor driver
-            motor.MotorRun(0, 'backward', speed) 
-            motor.MotorRun(1, 'backward', speed)
+            motor.MotorRun(0, 'forward', speed) 
+            motor.MotorRun(1, 'forward', speed)
     except KeyboardInterrupt:
         speed = 0
         print("User interrupted the car")
