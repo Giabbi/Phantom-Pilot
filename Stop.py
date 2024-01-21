@@ -2,8 +2,7 @@ from PCA9685 import PCA9685
 from time import sleep
 import os
 
-#!/usr/bin/python
-
+# The following code is from Waveshare's motor HAT documentation
 
 Dir = [
     'forward',
@@ -27,21 +26,17 @@ class MotorDriver():
         if(motor == 0):
             pwm.setDutycycle(self.PWMA, speed)
             if(index == Dir[0]):
-                print ("1")
                 pwm.setLevel(self.AIN1, 0)
                 pwm.setLevel(self.AIN2, 1)
             else:
-                print ("2")
                 pwm.setLevel(self.AIN1, 1)
                 pwm.setLevel(self.AIN2, 0)
         else:
             pwm.setDutycycle(self.PWMB, speed)
             if(index == Dir[0]):
-                print ("3")
                 pwm.setLevel(self.BIN1, 0)
                 pwm.setLevel(self.BIN2, 1)
             else:
-                print ("4")
                 pwm.setLevel(self.BIN1, 1)
                 pwm.setLevel(self.BIN2, 0)
 
@@ -51,8 +46,15 @@ class MotorDriver():
         else:
             pwm.setDutycycle(self.PWMB, 0)
 
-motor = MotorDriver()
-motor.MotorStop(0)
-motor.MotorStop(1)
-os.system("kill $(pgrep -f main.py)")
-print("Did it")
+# The following code was written by Giancarlo
+
+def main():
+    motor = MotorDriver()
+    # Stop motors
+    motor.MotorStop(0)
+    motor.MotorStop(1)
+    # Kill the Car Code.py process
+    os.system("kill $(pgrep -f main.py)")
+
+if __name__ == "__main__":
+    main()
