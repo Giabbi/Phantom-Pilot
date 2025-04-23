@@ -150,9 +150,9 @@ Phantom-Pilot/
 │   └── Stop.py          # Emergency stop helper
 ├── Phantom Pilot Starter.py   # Desktop launcher & GUI
 ├── docs/
-│   ├── photos/ …        # Build pics
-│   ├── gifs/ …          # Demo captures
-│   └── wiring.svg       # Fritzing diagram
+│   ├── images/ …        # Build pics
+│   ├── stl/ …           # Binary files for 3D print of cars
+│   └── UML/             # UML Diagrams 
 ├── requirements.txt
 └── LICENSE (MIT)
 ```

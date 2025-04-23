@@ -1,0 +1,11 @@
+# === desktop controller (any OS) ===
+paramiko>=3.4,<4.0      # SSH tunnel to each Pi
+
+# === Raspberry Pi motor code ===
+adafruit-blinka>=8.7,<9.0                 # unified GPIO layer
+adafruit-circuitpython-pca9685>=6.5,<7.0  # 16-channel PWM driver
+smbus2>=0.4,<1.0                          # I²C backend used by Blinka
+
+# === dev / lint (optional) ===
+black>=24.3,<25.0    # code formatter
+ruff>=0.4,<0.5       # linter/flake replacement
