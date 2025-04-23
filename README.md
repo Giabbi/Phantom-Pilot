@@ -71,7 +71,7 @@
 
 ## Software stack & architecture
 
-![Architecture](docs/architecture.svg)
+![Architecture](docs/images/architecture.png)
 
 
 **Languages / libs**
