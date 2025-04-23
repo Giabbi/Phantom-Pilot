@@ -1,0 +1,21 @@
+@startuml architecture
+!theme cerulean
+title Phantom-Pilot – High-level Architecture
+
+actor "Race Control\n(desktop)" as Desktop
+node "Pi #1\nracecar.py" as Car1
+node "Pi #2\nracecar.py" as Car2
+cloud "Wi-Fi LAN" as Wifi
+component "PCA9685\nMotor HAT" as Hat1
+component "PCA9685\nMotor HAT" as Hat2
+database "DC Motors" as Motors1
+database "DC Motors" as Motors2
+
+Desktop --> Wifi : SSH (paramiko)
+Wifi --> Car1
+Wifi --> Car2
+Car1 --> Hat1 : I²C PWM
+Car2 --> Hat2 : I²C PWM
+Hat1 --> Motors1
+Hat2 --> Motors2
+@enduml
